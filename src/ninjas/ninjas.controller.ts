@@ -11,9 +11,11 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { UpdateNinjaDto } from './dto/update-ninja.dto';
+import { BeltGuard } from 'src/belt/belt.guard';
 
 @Controller('ninjas')
 export class NinjasController {
@@ -36,6 +38,7 @@ export class NinjasController {
 
   //post /ninjas
   @Post()
+  @UseGuards(BeltGuard)
   createNinja(@Body(new ValidationPipe()) createNinjaDto: CreateNinjaDto) {
     return this.ninjaService.createNinja(createNinjaDto);
   }
